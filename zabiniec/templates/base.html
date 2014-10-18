@@ -16,14 +16,20 @@
   <body>
     <div id="content">
       {% block body %}{% endblock %}
+      {% if source_code %}
       <div class="porn">
         <div class="play">
           <button class="pure-button">PORN</button>
         </div>
         <div class="movie">
-          {{source_code|pornmaker}}
+          <h1>Nagie kody</h1>
+          {% for s in source_code %}
+            <h2>Plik: {{s['title']}}</h2>
+            {{s['content']|pornmaker}}
+          {% endfor %}
         </div>
       </div>
+      {% endif %}
     </div>
     <script type="text/javascript" src="static/vendor/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="static/js/main.js"></script>

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from functools import wraps
+
 from flask import g
 
 PROJECT_ROOT = os.path.dirname(
@@ -22,6 +23,8 @@ def app_runner(app, prod=False):
 def porn(func):
     @wraps(func)
     def f(*args, **kwargs):
-        g.current_object = func
+        porn = getattr(g, 'porn', [])
+        porn.append(func)
+        g.porn = porn
         return func(*args, **kwargs)
     return f
