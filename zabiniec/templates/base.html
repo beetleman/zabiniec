@@ -13,7 +13,7 @@
     <title>{{title}}</title>
   </head>
   <body>
-
+    {% block body %}{% endblock %}
     <script type="text/javascript" src="static/vendor/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="static/js/main.js"></script>
     {% block extra_js %}{% endblock %}
