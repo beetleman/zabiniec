@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+from .views import (
+    index,
+)
 
 
 def create_routes(app):
-    pass
+    app.add_url_rule('/', 'index', index)
