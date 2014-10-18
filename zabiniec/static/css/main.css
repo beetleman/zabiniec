@@ -1,2 +1,19 @@
-// główny plik z css
+#content {
+  width: 960px;
+  margin: 0 auto;
+}
 
+div.porn {
+  position:fixed;
+  bottom:0;
+  width: 960px;
+}
+div.porn div.play {
+  text-align: center;
+}
+div.porn div.movie {
+  display: none;
+  background-color: #E6E6E6;
+  padding: 16px;
+  border-radius: 2px 2px 0 0;
+}
