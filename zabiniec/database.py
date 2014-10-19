@@ -13,12 +13,14 @@ def _load_data(db):
             app.save()
             troll = User(
                 username='troll',
-                password='qwerty'
+                question='Ulubione Żabie święto?',
+                answer='Żabanuka'
             )
             troll.save()
             zabka = User(
                 username='zabka',
-                password='qwerty'
+                question='Jak Marny Troll niegrzeczny to go..?',
+                answer='wałkiem'
             )
             zabka.save()
 
