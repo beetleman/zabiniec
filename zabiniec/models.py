@@ -21,10 +21,14 @@ class BaseModel(Model):
         database = get_db()
 
 
+class App(BaseModel):
+    initialized = BooleanField(default=False)
+
+
 class User(BaseModel, UserMixin):
     username = CharField(unique=True, max_length=20)
-    password = CharField()
-    email = CharField(unique=True)
+    password = CharField(max_length=20)
+    email = CharField(unique=True, max_length=100, null=True)
 
     class Meta:
         order_by = ('username',)
