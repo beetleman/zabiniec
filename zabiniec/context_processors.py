@@ -10,7 +10,6 @@ def get_source_code():
     source_code = []
     if hasattr(g, 'porn'):
         for obj in g.porn:
-            print(obj)
             title = getfile(obj).replace(PROJECT_ROOT, 'zabiniec')
             source_code.append({
                 'title': title,
