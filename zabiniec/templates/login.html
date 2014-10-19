@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+  <div id="login">
+    {% if is_failed %}
+      <h1>No czooo tyyyy?</h1>
+    {% else  %}
+      <h1>Żabat Żabat?</h1>
+    {% endif %}
+    <form class="pure-form pure-form-stacked" method="POST" action="{{ url_for('login') }}?kto={{ username }}">
+      <fieldset>
+        <label id="question" for="answer">{% if is_failed %}Sprubujmy jeszcze raz.. {% endif %}{{ question }}</label>
+        <input type="text" name="answer" value="" />
+        <button type="submit" class="pure-button pure-button-primary">Tag!!</button>
+      </fieldset>
+    </form>
+    
+  </div>
+{% endblock %}
