@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from flask.ext.login import LoginManager
 
+from .utils import porn
+
 
 def setup_auth(app):
     from .models import User
@@ -8,5 +10,6 @@ def setup_auth(app):
     login_manager.init_app(app)
 
     @login_manager.user_loader
+    @porn
     def load_user(userid):
-        return User.get(User.get(User.id == userid))
+        return User.get(User.id == userid)
