@@ -15,4 +15,6 @@ def create_app(config):
         create_db(app)
         from .routes import create_routes
         create_routes(app)
+        from .auth import setup_auth
+        setup_auth(app)
     return app
