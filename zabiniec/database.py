@@ -2,9 +2,30 @@
 from flask import g
 
 
+def _load_data(db):
+    from .models import User, App
+    try:
+        App.get(App.initialized == True)
+    except App.DoesNotExist:
+        print('Ładuje Żapkę i Marnego Trola..')
+        with db.transaction():
+            app = App(initialized=True)
+            app.save()
+            troll = User(
+                username='troll',
+                password='qwerty'
+            )
+            troll.save()
+            zabka = User(
+                username='zabka',
+                password='qwerty'
+            )
+            zabka.save()
+
+
 def create_db(app):
     db_params = {}
-    if  app.config.get('DB_USER'):
+    if app.config.get('DB_USER'):
         db_params['user'] = app.config['DB_USER']
     if app.config.get('DB_HOST'):
         db_params['host'] = app.config['DB_HOST']
@@ -15,8 +36,9 @@ def create_db(app):
     db = app.config['DB_CLASS'](app.config['DB_NAME'])
     g.db = db
     db.connect()
-    from .models import User
-    db.create_tables([User], safe=True)
+    from .models import User, List, ListField, App
+    db.create_tables([User, List, ListField, App], safe=True)
+    _load_data(db)
 
 
 def get_db():
