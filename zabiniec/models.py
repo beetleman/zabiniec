@@ -53,8 +53,8 @@ class User(BaseModel, UserMixin):
 
 
 class List(BaseModel):
-    title = CharField(max_length=100)
-    description = TextField
+    title = CharField(max_length=100, default="")
+    description = TextField(default="")
     author = ForeignKeyField(
         User,
         related_name='lists',
@@ -75,6 +75,7 @@ class ListField(BaseModel):
         User,
         related_name='done',
         on_delete='CASCADE',
+        null=True
     )
     list = ForeignKeyField(
         List,
