@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from flask import render_template, request, redirect, url_for
-from flask.ext.login import login_user, login_required, logout_user, current_user
+from flask import render_template, request, redirect, url_for, abort
+from flask.ext.login import login_user, login_required, logout_user, \
+    current_user
 
 from .utils import porn
-from .models import User
+from .models import User, List, ListField
 
 
 @porn
@@ -48,6 +49,7 @@ def lists():
     return render_template(
         'lists.html',
         title='Planista-Żabista!',
+        lists=List.select()
     )
 
 
@@ -72,4 +74,57 @@ def change_passwd():
         is_failed=is_failed,
         answer=complementary_user.answer,
         question=complementary_user.question
+    )
+
+
+@porn
+def _edit_list_helper(obj):
+    description = request.form.get('description', '').strip()
+    title = request.form.get('title', '').strip()
+    if len(description) < 5 or len(title) < 5:
+        return (obj, False)
+    obj.description = description
+    obj.title = title
+    obj.author = current_user.id
+    obj.save()
+    for todo in request.form.getlist('todo'):
+        # czyszcze z pustych wpisów
+        if not todo.strip() and len(todo.strip()) < 5:
+            continue
+        ListField(todo=todo, list=obj.id).save()
+    return (obj, True)
+
+
+@login_required
+@porn
+def edit_list(list_id=None):
+    try:
+        list_obj = List.get(id=list_id)
+    except List.DoesNotExist:
+        abort(404)
+    is_done = True
+    if request.method == 'POST':
+        list_obj, is_failed = _edit_list_helper(list_obj)
+    return render_template(
+        'edit_list.html',
+        title='Tego kce!',
+        is_failed=not is_done,
+        list_obj=list_obj
+    )
+
+
+@login_required
+@porn
+def add_list():
+    list_obj = List()
+    is_done = True
+    if request.method == 'POST':
+        list_obj, is_done = _edit_list_helper(list_obj)
+        if is_done:
+            return redirect(url_for('edit_list', list_id=list_obj.id))
+    return render_template(
+        'edit_list.html',
+        title='Tego kce!',
+        is_failed=not is_done,
+        list_obj=list_obj
     )

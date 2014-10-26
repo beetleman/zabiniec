@@ -5,6 +5,8 @@ from .views import (
     lists,
     logout,
     change_passwd,
+    edit_list,
+    add_list,
 )
 
 
@@ -17,5 +19,17 @@ def create_routes(app):
         '/change_passwd',
         'change_passwd',
         change_passwd,
+        methods=['GET', 'POST']
+    )
+    app.add_url_rule(
+        '/edit_list/<int:list_id>',
+        'edit_list',
+        edit_list,
+        methods=['GET', 'POST']
+    )
+    app.add_url_rule(
+        '/add_list',
+        'add_list',
+        add_list,
         methods=['GET', 'POST']
     )

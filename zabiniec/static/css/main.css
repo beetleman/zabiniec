@@ -1,7 +1,11 @@
-body { width:100%; height:100%; }
+body { width:100%; height:100%;}
 #content {
   width: 960px;
   margin: 0 auto;
+  padding-top: 20px;
+}
+#statusbar .config{
+  float: right;
 }
 
 div.porn {
@@ -19,4 +23,15 @@ div.porn div.movie {
   background-color: #E6E6E6;
   padding: 16px;
   border-radius: 2px 2px 0 0;
+}
+
+#edit_list .todo input{
+  width: 100%;
+}
+#edit_list .todo button{
+  float: right;
+}
+
+#lists table {
+  width: 100%;
 }
