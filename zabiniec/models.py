@@ -26,10 +26,27 @@ class App(BaseModel):
 
 
 class User(BaseModel, UserMixin):
+    TROLL = 'troll'
+    ZABKA = 'zabka'
     username = CharField(unique=True, max_length=20)
     question = CharField(max_length=100)
     answer = CharField(max_length=100)
     email = CharField(unique=True, max_length=100, null=True)
+
+    def is_zabka(self):
+        return self.username == self.ZABKA
+
+    def is_troll(self):
+        return self.username == self.TROLL
+
+    def get_complementary(self):
+        if self.username == self.ZABKA:
+            username = self.TROLL
+        elif self.username == self.TROLL:
+            username = self.ZABKA
+        else:
+            usenname = None
+        return User.get(username=username)
 
     class Meta:
         order_by = ('username',)
