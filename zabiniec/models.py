@@ -7,6 +7,7 @@ from peewee import (
 from flask.ext.login import UserMixin
 
 from .database import get_db
+from .utils import porn
 
 
 class BaseModel(Model):
@@ -33,12 +34,15 @@ class User(BaseModel, UserMixin):
     answer = CharField(max_length=100)
     email = CharField(unique=True, max_length=100, null=True)
 
+    @porn
     def is_zabka(self):
         return self.username == self.ZABKA
 
+    @porn
     def is_troll(self):
         return self.username == self.TROLL
 
+    @porn
     def get_complementary(self):
         if self.username == self.ZABKA:
             username = self.TROLL
@@ -61,6 +65,7 @@ class List(BaseModel):
         on_delete='CASCADE',
     )
 
+    @porn
     def is_done(self):
         for field in self.fields:
             if not field.done:
