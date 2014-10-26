@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import os
 from peewee import SqliteDatabase, PostgresqlDatabase
+from simplekv.fs import FilesystemStore
 
 from .utils import get_abspath
 
@@ -11,12 +11,14 @@ class Conf:
     DB_NAME = None
     DB_HOST = None
     DB_PASSWORD = None
+    SESSION_STORE = None
 
 
 class DevelopConfig(Conf):
     DB_CLASS = SqliteDatabase
     DEBUG = True
     DB_NAME = get_abspath('dane.db')
+    SESSION_STORE = FilesystemStore(get_abspath('session'))
 
 
 class ProductionConfig(Conf):

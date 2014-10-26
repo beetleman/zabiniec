@@ -1,2 +1,4 @@
 dane.db
 *.pyc
+zabiniec/session/*
+!zabiniec/session/.keep

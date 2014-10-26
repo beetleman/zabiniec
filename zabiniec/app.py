@@ -7,6 +7,8 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
     with app.app_context():
+        from flask_kvsession import KVSessionExtension
+        KVSessionExtension(app.config['SESSION_STORE'], app)
         from .context_processors import register_context_processors
         register_context_processors(app)
         from .templatetags import register_templatetags
