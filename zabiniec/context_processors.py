@@ -17,7 +17,6 @@ def get_source_code():
                 'content': getsource(obj)
             })
         g.porn[porn_key] = []
-    source_code.reverse()
     return {'source_code': source_code}
 
 
