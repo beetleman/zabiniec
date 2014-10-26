@@ -61,10 +61,21 @@ class List(BaseModel):
         on_delete='CASCADE',
     )
 
+    def is_done(self):
+        for field in self.fields:
+            if not field.done:
+                return False
+        return True
+
 
 class ListField(BaseModel):
     todo = CharField(max_length=200)
     done = BooleanField(default=False)
+    done_by = ForeignKeyField(
+        User,
+        related_name='done',
+        on_delete='CASCADE',
+    )
     list = ForeignKeyField(
         List,
         related_name='fields',
