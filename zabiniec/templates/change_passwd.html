@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+  <div id="password-change">
+    <h1>Plany</h1>
+    <form class="pure-form pure-form-stacked" method="POST" action="{{ url_for('change_passwd') }}">
+      <fieldset>
+        <label for="question">
+          Pytanie dla
+          {% if current_user.is_zabka %}
+            Trolla Marnego:
+          {% else%}
+            Żaby Najwyrzszej:
+          {% endif %}
+        </label>
+        <input type="text" name="question" value="{{question}}" />
+        <label for="answer"> Odpowiedz: </label>
+        <input type="text" name="answer" value="{{answer}}" />
+        <button type="submit" class="pure-button pure-button-primary">Tag!!</button>
+      </fieldset>
+    </form>
+  </div>
+{% endblock %}
