@@ -91,11 +91,20 @@ def _edit_list_helper(obj):
     obj.title = title
     obj.author = current_user.id
     obj.save()
+
     for todo in request.form.getlist('todo'):
         # czyszcze z pustych wpisów
         if not todo.strip() and len(todo.strip()) < 5:
             continue
         ListField(todo=todo, list=obj.id).save()
+
+    for key in request.form.keys():
+        if 'todo_' in key:
+            _, field_id = key.split('_')
+            field = ListField.get(id=field_id, list=obj.id)
+            field.todo = request.form.get(key)
+            field.save()
+
     return (obj, True)
 
 
@@ -132,3 +141,14 @@ def add_list():
         is_failed=not is_done,
         list_obj=list_obj
     )
+
+
+@login_required
+@porn
+def delete_list(list_id=None):
+    try:
+        list_obj = List.get(id=list_id)
+    except List.DoesNotExist:
+        abort(404)
+    list_obj.delete_instance()
+    return redirect(url_for('lists'))

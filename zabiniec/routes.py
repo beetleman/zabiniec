@@ -7,6 +7,7 @@ from .views import (
     change_passwd,
     edit_list,
     add_list,
+    delete_list,
 )
 
 
@@ -32,4 +33,9 @@ def create_routes(app):
         'add_list',
         add_list,
         methods=['GET', 'POST']
+    )
+    app.add_url_rule(
+        '/delete_list/<int:list_id>',
+        'delete_list',
+        delete_list,
     )
