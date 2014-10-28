@@ -9,11 +9,15 @@ from .models import User, List, ListField
 
 @porn
 def index():
+    if not current_user.is_anonymous() and current_user.is_authenticated():
+        return redirect(url_for('lists'))
     return render_template('index.html', title='Ktoś?')
 
 
 @porn
 def login():
+    if not current_user.is_anonymous() and current_user.is_authenticated():
+        return redirect(url_for('lists'))
     username = request.args.get('kto')
     is_failed = False
     try:
