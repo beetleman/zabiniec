@@ -28,8 +28,11 @@ div.porn div.movie {
 #edit_list .todo input{
   width: 100%;
 }
-#edit_list .todo button{
+#edit_list .todo a{
   float: right;
+}
+.button-container{
+  margin: auto;
 }
 
 #lists table {

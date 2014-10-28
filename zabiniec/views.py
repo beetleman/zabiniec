@@ -152,3 +152,14 @@ def delete_list(list_id=None):
         abort(404)
     list_obj.delete_instance()
     return redirect(url_for('lists'))
+
+
+@login_required
+@porn
+def delete_listfield(list_id=None, field_id=None):
+    try:
+        field_obj = ListField.get(id=field_id, list=list_id)
+    except List.DoesNotExist:
+        abort(404)
+    field_obj.delete_instance()
+    return redirect(url_for('edit_list', list_id=list_id))

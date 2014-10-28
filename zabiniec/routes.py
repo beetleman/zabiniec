@@ -8,6 +8,7 @@ from .views import (
     edit_list,
     add_list,
     delete_list,
+    delete_listfield,
 )
 
 
@@ -38,4 +39,9 @@ def create_routes(app):
         '/delete_list/<int:list_id>',
         'delete_list',
         delete_list,
+    )
+    app.add_url_rule(
+        '/delete_listfield/<int:list_id>/<int:field_id>',
+        'delete_listfield',
+        delete_listfield,
     )
