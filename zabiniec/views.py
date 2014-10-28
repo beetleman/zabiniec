@@ -150,7 +150,7 @@ def delete_list(list_id=None):
         list_obj = List.get(id=list_id)
     except List.DoesNotExist:
         abort(404)
-    list_obj.delete_instance()
+    list_obj.delete_instance(recursive=True)
     return redirect(url_for('lists'))
 
 
