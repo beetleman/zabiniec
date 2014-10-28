@@ -2,7 +2,7 @@
 
 (function($) {
     "use strict";
-    $('.porn .play').click(function() {
+    $('.porn .play button').click(function() {
         var movie = $('.porn .movie');
         var height = $(window).height()*0.4;
         movie.height(height);
