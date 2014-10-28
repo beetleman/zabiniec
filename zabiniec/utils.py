@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
 import uuid
+import json
 from functools import wraps
+from inspect import getsource, getfile
 
-from flask import g, session
+from simplekv.fs import FilesystemStore
+from flask import session
 
 PROJECT_ROOT = os.path.dirname(
     os.path.abspath(__file__)
@@ -24,16 +27,13 @@ def app_runner(app, prod=False):
 def porn(func):
     @wraps(func)
     def f(*args, **kwargs):
-        if not hasattr(g, 'porn'):
-            g.porn = {}
-        if 'porn_key' not in session:
-            porn_key = uuid.uuid1().bytes
-            session['porn_key'] = porn_key
-            session.modified = True
-        else:
-            porn_key = session['porn_key']
-        porn = g.porn.get(porn_key, [])
-        porn.append(func)
-        g.porn[porn_key] = porn
+        porn = session.get('porn', [])
+        title = getfile(func).replace(PROJECT_ROOT, 'zabiniec')
+        porn.append({
+            'title': title,
+            'content': getsource(func)
+        })
+        session['porn'] = porn
+        session.modified = True
         return func(*args, **kwargs)
     return f

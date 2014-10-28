@@ -1,23 +1,15 @@
 # -*- coding: utf-8 -*-
 from inspect import getsource, getfile
-from flask import g, session
+from flask import session
 
 from .utils import PROJECT_ROOT, porn
 
 
 @porn
 def get_source_code():
-    source_code = []
-    if hasattr(g, 'porn'):
-        porn_key = session['porn_key']
-        for obj in g.porn.get(porn_key, []):
-            title = getfile(obj).replace(PROJECT_ROOT, 'zabiniec')
-            source_code.append({
-                'title': title,
-                'content': getsource(obj)
-            })
-        g.porn[porn_key] = []
-    return {'source_code': source_code}
+    porn = session.get('porn', [])
+    session['porn'] = []
+    return {'source_code': porn}
 
 
 def register_context_processors(app):
