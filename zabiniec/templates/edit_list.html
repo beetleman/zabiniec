@@ -52,12 +52,12 @@
           </div>
         </div>
       </fieldset>
-      <button type="submit" class="pure-button pure-button-primary">Zapisz liste</button>
+      <button type="submit" class="pure-button pure-button-primary">Tag!!</button>
       {% if list_obj.id %}
         <a class="pure-button pure-button-primary" href="{{ url_for('delete_list', list_id=list_obj.id) }}">Usuń Liste</a>
-        <a class="pure-button pure-button-primary" href="">Anuluj</a>
+        <a class="pure-button pure-button-primary" href="">Nope!!</a>
       {% else  %}
-        <a class="pure-button pure-button-primary" href="{{ url_for('lists')}}">Anuluj</a>
+        <a class="pure-button pure-button-primary" href="{{ url_for('lists')}}">Nope!!</a>
       {% endif %}
     </form>
   </div>
