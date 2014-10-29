@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block body %}
+  <div id="view_list">
+    <h1>
+      <span class="username">{{ list_obj.author.username }}: </span>
+      <span class="{% if list_obj.is_done() %}complete{% endif %}">{{ list_obj.title}}</span>
+    </h1>
+    <p id="description">{{ list_obj.description }}</p>
+    <div class="metadata">
+      <div class="date">
+        <span class="left">Utworzone: {{ list_obj.created.strftime('%H:%M %d.%m.%Y') }}</span>
+        <span class="right">Ostatnia zmiana: {{ list_obj.modified.strftime('%H:%M %d.%m.%Y') }}</span>
+      </div>
+    </div>
+    {% for field in list_obj.fields %}
+      <hr/>
+      <div class="pure-g todo ">
+        <div class="pure-u-20-24 center-content {% if field.done %}complete{% endif %}">
+          {{field.todo}}
+        </div>
+        <div class="pure-u-4-24 .center-content">
+          {% if field.can_i(current_user) %}
+            <a href="{{ url_for('toggle_listfield', list_id=list_obj.id, field_id=field.id) }}" class="pure-button pure-button-primary">
+              {% if field.done %}
+                Jednak nie:(
+              {% else %}
+                Zrób
+              {% endif %}
+            </a>
+          {% else %}
+            Zrobił/ła: <span class="username">{{field.done_by.username}}</span>
+          {% endif %}
+        </div>
+      </div>
+      {% else %}
+      <div class="todo">
+        <div class="pure-u-20-24">
+          Brak zadań
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

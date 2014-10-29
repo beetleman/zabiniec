@@ -163,3 +163,33 @@ def delete_listfield(list_id=None, field_id=None):
         abort(404)
     field_obj.delete_instance()
     return redirect(url_for('edit_list', list_id=list_id))
+
+
+@login_required
+@porn
+def view_list(list_id=None):
+    try:
+        list_obj = List.get(id=list_id)
+    except List.DoesNotExist:
+        abort(404)
+    return render_template(
+        'view_list.html',
+        title='Co robimy?',
+        list_obj=list_obj
+    )
+
+
+@login_required
+@porn
+def toggle_listfield(list_id=None, field_id=None):
+    try:
+        field_obj = ListField.get(id=field_id, list=list_id)
+    except List.DoesNotExist:
+        abort(404)
+    if not field_obj.can_i(current_user):
+        abort(401)
+    field_obj.done = not field_obj.done
+    if field_obj.done:
+        field_obj.done_by = current_user.id
+    field_obj.save()
+    return redirect(url_for('view_list', list_id=list_id))
