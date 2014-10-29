@@ -38,3 +38,8 @@ div.porn div.movie {
 #lists table {
   width: 100%;
 }
+
+.complete {
+  text-decoration: line-through;
+  color: #484849;
+}
