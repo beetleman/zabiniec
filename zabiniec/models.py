@@ -65,6 +65,13 @@ class List(BaseModel):
         on_delete='CASCADE',
     )
 
+    def complete_percent(self):
+        done = 0
+        for field in self.fields:
+            if field.done:
+                done += 1
+        return float(done)*100/self.fields.count()
+
     @porn
     def is_done(self):
         for field in self.fields:
@@ -87,6 +94,12 @@ class ListField(BaseModel):
         related_name='fields',
         on_delete='CASCADE',
     )
+
+    def can_i(self, user):
+        if not self.done or (self.done and user.id == self.done_by.id):
+            return True
+        else:
+            return False
 
     def save(self, *args, **kwargs):
         self.list.save()
