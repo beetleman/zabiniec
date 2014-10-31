@@ -6,9 +6,18 @@ from flask.ext.login import login_user, login_required, logout_user, \
 from .utils import porn
 from .models import User, List, ListField
 
+# to coś z @ to dodanie dekoratora do danej funkcji,
+# dekorator porn napisał Troll, a login_required
+# jak nazwa wskazuje sprawdza czy jest się zalogowanym
+
+# w tym dokumencie są tylko funkcje które zwracają albo
+# przekierowanie lub coś co będzie htmlem
+
 
 @porn
 def index():
+    """główna strona
+    """
     if not current_user.is_anonymous() and current_user.is_authenticated():
         return redirect(url_for('lists'))
     return render_template('index.html', title='Ktoś?')
@@ -16,17 +25,33 @@ def index():
 
 @porn
 def login():
+    """Strona logowania
+    """
+    # jeśli ktoś jest zalogowany to się go przerzuca
+    # od razu do strony z listami
     if not current_user.is_anonymous() and current_user.is_authenticated():
         return redirect(url_for('lists'))
+
+    # bierzemy parametr przekazany w adresie,
+    # sprawdź co masz w pasku przeglądarki to sie domyślisz,
+    # będzie coś w rodzaju `/login?kto=zabka`
     username = request.args.get('kto')
     is_failed = False
     try:
         user = User.get(User.username == username)
     except User.DoesNotExist:
+        # jeśli nie ma użytkownika to znaczy ze ktoś cos kombinuje,
+        # przekierować do strony w której może sobie kliknąć kim jest
         return redirect(url_for('index'))
+    # jeśli dane są przekazywane postem to obsługa logowanie
+    # jak nie to wy-renderowanie formularza z danymi do logowania
     if request.method == 'POST':
         answer = request.form.get('answer')
+        # sprawdzam czy dobrze odpowiedziano na pytanie,
+        # ignoruje wielkość znaków
+        # (.lower() powoduje ze wszytko zmienione zostaje na małe literki)
         if answer.lower() == user.answer.lower():
+            # jak dobrze dopowiedziane to przekierowuje na stronę z listami
             login_user(user)
             return redirect(url_for('lists'))
         else:
@@ -43,6 +68,8 @@ def login():
 @login_required
 @porn
 def logout():
+    """wylogowywanie użytkownika obecnego w obecnej sesji
+    """
     logout_user()
     return redirect(url_for('index'))
 
@@ -50,6 +77,9 @@ def logout():
 @login_required
 @porn
 def lists():
+    """Popranie wszystkich list i przekazanie ich do template
+    do wyświetlenia
+    """
     return render_template(
         'lists.html',
         title='Planista-Żabista!',

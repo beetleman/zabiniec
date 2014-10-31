@@ -3,6 +3,10 @@ from flask import g
 
 
 def _load_data(db):
+    """Ląduje dane początkowe do aplikacji
+
+    :param db: baza danych
+    """
     from .models import User, App
     try:
         App.get(App.initialized == True)
@@ -36,12 +40,24 @@ def create_db(app):
     if app.config.get('DB_PASSWORD'):
         db_params['password'] = app.config['DB_PASSWORD']
     db = app.config['DB_CLASS'](app.config['DB_NAME'])
+    # bazę danych zawsze przechowuje w zmiennej globalnej,
+    # aby to działało trzeba wszystko uruchomić w kontekście aplikacji flask
+    # dlatego to dziwactwo w run.py
     g.db = db
     db.connect()
+    # importuje modele i tworze tabele do przechowywania danych dla nich
     from .models import User, List, ListField, App
     db.create_tables([User, List, ListField, App], safe=True)
     _load_data(db)
 
 
+# Nie lubimy używać bezpośrednio zmiennych globalnych dlatego ten fakt
+# chowamy pod funkcją.
 def get_db():
+    """Pobiera objekt bazy danych
+
+    :returns: Baza danych
+    :rtype: peewee.Database
+
+    """
     return g.db

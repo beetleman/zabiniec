@@ -15,15 +15,20 @@ from .views import (
 
 
 def create_routes(app):
+    # tworzy połączenia między funkcjami z views.py
+    # a adresami które wpisywane są w przeglądarce
+
     app.add_url_rule('/', 'index', index)
     app.add_url_rule('/login', 'login', login,  methods=['GET', 'POST'])
     app.add_url_rule('/logout', 'logout', logout)
     app.add_url_rule('/lists', 'lists', lists)
+    # omiwie to na tym przykładzie:
     app.add_url_rule(
-        '/change_passwd',
-        'change_passwd',
-        change_passwd,
-        methods=['GET', 'POST']
+        '/change_passwd',  # adres
+        'change_passwd',  # skutkować nazwa po której można się
+                          # odwoływać do adresu
+        change_passwd,  # widok który zostanie wywołany
+        methods=['GET', 'POST']  # dozwolone metody
     )
     app.add_url_rule(
         '/edit_list/<int:list_id>',

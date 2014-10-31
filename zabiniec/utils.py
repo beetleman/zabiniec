@@ -14,16 +14,34 @@ PROJECT_ROOT = os.path.dirname(
 
 
 def get_abspath(path):
+    """Buduje absolutą biorąc folder projektu jako root
+
+    :param path: ścieżka do jakie pliku w projekcie
+    :returns: absolutą ścieżkę
+    :rtype: str
+
+    """
     return os.path.join(PROJECT_ROOT, path)
 
 
 def app_runner(app, prod=False):
+    """Funkcja uruchamiająca aplikację
+
+    :param app: aplikacja flask
+    :param prod: czy uruchamiamy produkcyjnie
+
+    """
     if prod:
         raise NotADirectoryError('Dopisze jak zdąrze')
     else:
         app.run()
 
 
+# no i to jest dekorator, czyli takie coś co dekoruje funkcje,
+# czyli zmienia jej właściwości, trochę trudne to i wyjaśni
+# Troll Żabce jak już wszystko inne złapie:*
+# dla ambitnych Żab:
+# http://pythonista.net/blog/2010/dekoratory1/
 def porn(func):
     @wraps(func)
     def f(*args, **kwargs):
