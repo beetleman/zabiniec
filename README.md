@@ -11,7 +11,7 @@ Niniejsza aplikacja to prezent urodzinowy dla najukochańszej Żaby na świecie 
 ## Po co?
 Żaba chce się uczyć Pythona to Trol Marny służ. Innymi słowy stworzyłem dla Ciebie kod na którym będziesz się mogła bawić. Jest w nim jeszcze sporo do poprawienia i miejscami nie jest najbezpieczniejszy ale wyłapanie tych błędów mam nadzieje będzie dobrą zabawą dla Ciebie.
 
-## Ja to zainstalować
+## Ja to zainstalować?
 Będziesz Żabim hackerem wiec omowimy krok po kroku:
 * Sciągnij i zainstaluj <a href="https://www.python.org/downloads/">Python</a> (najlepiej 3.4.x)
 * Ściągnij i zainstaluj <a href="http://git-scm.com/download/">Git</a>
@@ -34,7 +34,7 @@ git clone git@github.com:beetleman/zabiniec.git prezent_od_trolla
 ```bash
 python run.py
 ```
-## Co dalej:
+## Co dalej?
 * znajdziemy hosting dla zabinca i będziemy go dalej rozwijać w ramach twojej nauki
 
 ## ToDo dla Żaby:
