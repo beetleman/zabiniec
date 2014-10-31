@@ -3,11 +3,11 @@
   <div id="index">
     <h1>Ktoś Ty?</h1>
     <div class="choice pure-g">
-      <div class="pure-u-1-2">
-        <a href="{{ url_for('login') }}?kto=troll">Troll</a>
+      <div class="pure-u-1-2 troll">
+        <a class="right" href="{{ url_for('login') }}?kto=troll">Troll</a>
       </div>
-      <div class="pure-u-1-2">
-        <a href="{{ url_for('login') }}?kto=zabka">Żabniczka</a>
+      <div class="pure-u-1-2 zabka">
+        <a class="left" href="{{ url_for('login') }}?kto=zabka">Żabniczka</a>
       </div>
     </div>
   </div>
