@@ -22,10 +22,14 @@ Będziesz Żabim hackerem wiec omowimy krok po kroku:
 git clone git@github.com:beetleman/zabiniec.git prezent_od_trolla
 ```
 * przejdz w konsoli do katalogu prezent_od_trolla
-* wpisz komendę by zainstalować zależności:
-```bash
-pip instal -r requirements.txt
-```
+* dla windows (chyba zadziała):
+    * wpisz komendę by zainstalować zależności:
+    ```bash
+    easy_install install pip
+    pip instal -r requirements.txt
+    ```
+* dla linux:
+    * dopisze jak sie dobiem jakiego linuxa ma Żaba
 * jak wszystko się uda to masz już gotowy do uruchomienia prezent, uruchom go:
 ```bash
 python run.py
