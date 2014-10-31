@@ -3,3 +3,7 @@
 Flask==0.10.1
 Flask-Login==0.2.11
 peewee==2.3.3
+Pygments==1.6
+gunicorn==19.1.1
+simplekv==0.9.2
+Flask-KVSession==0.6.1
