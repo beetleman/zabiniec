@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
-from inspect import getsource, getfile
+
+# aby dziaałało tak samo na python 2 i 3, znaczy z 2.7 robię 3.x :D
+from __future__ import (absolute_import, division, unicode_literals,
+                        print_function, nested_scopes)
+
 from flask import session
 
-from .utils import PROJECT_ROOT, porn
+from .utils import porn
 
 # Context Processors to takie cosie co są uruchamiane zaraz przed powstaniem
 # kodu HTML który zostanie wysłany do przeglądarki

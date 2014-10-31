@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
+
+# aby dziaałało tak samo na python 2 i 3, znaczy z 2.7 robię 3.x :D
+from __future__ import (absolute_import, division, unicode_literals,
+                        print_function, nested_scopes)
+
 import os
-import uuid
-import json
+
 from functools import wraps
 from inspect import getsource, getfile
 
-from simplekv.fs import FilesystemStore
 from flask import session
 
 PROJECT_ROOT = os.path.dirname(
@@ -32,7 +35,9 @@ def app_runner(app, prod=False):
 
     """
     if prod:
-        raise NotADirectoryError('Dopisze jak zdąrze')
+        import waitress
+        waitress.serve(
+            app,  host=app.config['APP_HOST'], port=app.config['APP_PORT'])
     else:
         app.run()
 
