@@ -36,8 +36,14 @@ def app_runner(app, prod=False):
     """
     if prod:
         import waitress
+        pid = os.getpgid()
+        with open(app.config['APP_PID_FILE'], 'w') as f:
+            f.write(pid)
         waitress.serve(
-            app,  host=app.config['APP_HOST'], port=app.config['APP_PORT'])
+            app,
+            host=app.config['APP_HOST'],
+            port=app.config['APP_PORT']
+        )
     else:
         app.run()
 
