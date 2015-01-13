@@ -5,36 +5,16 @@
 from __future__ import (absolute_import, division, unicode_literals,
                         print_function, nested_scopes)
 
-import argparse
-
 from zabiniec import config
 from zabiniec.app import create_app
-from zabiniec.utils import app_runner
-
-
-parser = argparse.ArgumentParser(description="Uruchamia aplikacje")
-parser.add_argument(
-    "-p",
-    "--prod",
-    help="włączenie trybu produkcyjnego",
-    action='store_true'
-)
 
 
 def main():
-    """Główna funkcja programu, to ona startuje wszystko.
+    """Główna funkcja programu, to ona startuje wszystko. Uruchamia w trybie do żabawy,
+    to znaczy ze tym plikiem nie powinno sie uruchamiać aplikacji na hostingu.
     """
-    # przygotowuje parser dla argumentów do programu run.py
-    args = parser.parse_args()
-    # w zależności od parametru --prod strona uruchamia
-    # sie w trybybie produkcyjnym lub nie
-    if args.prod:
-        conf = config.ProductionConfig()
-    else:
-        conf = config.DevelopConfig()
-    # uruchamiam aplikacje
-    app = create_app(conf)
-    app_runner(app, args.prod)
+    app = create_app(config.DevelopConfig())
+    app.run()
 
 
 if __name__ == '__main__':
