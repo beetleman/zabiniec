@@ -2,3 +2,4 @@ dane.db
 *.pyc
 zabiniec/session/*
 !zabiniec/session/.keep
+secret_config.py
