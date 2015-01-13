@@ -23,6 +23,7 @@ class Conf:
     # lokalizacja pliku z bazą
     DB_NAME = get_abspath('dane.db')
     DB_HOST = None
+    DB_USER = None
     DB_PASSWORD = None
 
 
@@ -42,9 +43,23 @@ class DevelopConfig(Conf):
 
 
 class ProductionConfig(Conf):
+    def __init__(self):
+
+        # importuje tutaj konfig z pliku nie bedacego w git
+        # zawiera on haslo i uzytkownika dla bazy
+        # tych danych nie chcemy trzymac publicznie:D
+        try:
+            from .secret_config import DB_USER, DB_PASSWORD, SECRET_KEY
+        except ImportError:
+            DB_USER = 'zabka'
+            DB_PASSWORD = 'zabka'
+            SECRET_KEY = '_zw_fhfv#affd@2**k9*i-f*coh&gu@p@o(f=f-i6m8mr7#u!g'
+        self.SECRET_KEY = SECRET_KEY
+        self.DB_USER = DB_USER
+        self.DB_PASSWORD = DB_PASSWORD
+
     DEBUG = False
     SESSION_STORE_CREATOR = lambda self: PeeweeStore(get_db())
     DB_CLASS = PostgresqlDatabase
-    APP_HOST = '0.0.0.0'
-    APP_PORT = '18001'
-    APP_PID_FILE = get_abspath('pid')
+    DB_NAME = 'zabiniec'
+    DB_HOST = '127.0.0.1'

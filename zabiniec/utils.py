@@ -27,32 +27,12 @@ def get_abspath(path):
     return os.path.join(PROJECT_ROOT, path)
 
 
-def app_runner(app, prod=False):
-    """Funkcja uruchamiająca aplikację
-
-    :param app: aplikacja flask
-    :param prod: czy uruchamiamy produkcyjnie
-
-    """
-    if prod:
-        import waitress
-        pid = os.getpgid()
-        with open(app.config['APP_PID_FILE'], 'w') as f:
-            f.write(pid)
-        waitress.serve(
-            app,
-            host=app.config['APP_HOST'],
-            port=app.config['APP_PORT']
-        )
-    else:
-        app.run()
-
-
 # no i to jest dekorator, czyli takie coś co dekoruje funkcje,
 # czyli zmienia jej właściwości, trochę trudne to i wyjaśni
 # Troll Żabce jak już wszystko inne złapie:*
 # dla ambitnych Żab:
 # http://pythonista.net/blog/2010/dekoratory1/
+
 def porn(func):
     @wraps(func)
     def f(*args, **kwargs):
