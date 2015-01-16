@@ -44,7 +44,7 @@ def create_db(app):
         db_params['port'] = app.config['DB_PORT']
     if app.config.get('DB_PASSWORD'):
         db_params['password'] = app.config['DB_PASSWORD']
-    db = app.config['DB_CLASS'](app.config['DB_NAME'])
+    db = app.config['DB_CLASS'](app.config['DB_NAME'], **db_params)
     # bazę danych zawsze przechowuje w zmiennej globalnej,
     # aby to działało trzeba wszystko uruchomić w kontekście aplikacji flask
     # dlatego to dziwactwo w run.py
